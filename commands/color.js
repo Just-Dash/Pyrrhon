@@ -4,7 +4,7 @@ const ut = require('../userTools');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('color')
-    .setDescription('Spend points to get a color role.')
+    .setDescription('Spend points to get a color role')
     .addSubcommand(subcommand =>
       subcommand
         .setName('preset')

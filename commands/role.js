@@ -27,7 +27,7 @@ module.exports = {
         )
     ),
   async execute(interaction) {
-    const freeRoles = ['1017022053167136798', '1017022100625698866'];
+    const freeRoles = ['748387591942045696', '710670964471496744', '748388197553143859', '909645162991484948'];
     if (!freeRoles.includes(interaction.options.getRole('role').id)) {
       await interaction.reply('Sorry, you can\'t add/remove yourself from that role.');
     }

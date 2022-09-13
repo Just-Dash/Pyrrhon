@@ -4,7 +4,7 @@ const ut = require('../userTools');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('points')
-    .setDescription('Keeps track of a member\'s points.')
+    .setDescription('Keeps track of a member\'s points')
     .addSubcommand(subcommand => 
       subcommand
         .setName('view')
@@ -18,7 +18,7 @@ module.exports = {
     .addSubcommand(subcommand =>
       subcommand
         .setName('add')
-        .setDescription('Add points to a user\'s account.')
+        .setDescription('Add points to a user\'s account')
         .addUserOption(option =>
           option
             .setName('user')
@@ -35,7 +35,7 @@ module.exports = {
     .addSubcommand(subcommand =>
       subcommand
         .setName('sub')
-        .setDescription('Subtract points from a user\'s account.')
+        .setDescription('Subtract points from a user\'s account')
         .addUserOption(option =>
           option
             .setName('user')

@@ -4,7 +4,7 @@ const ut = require('../userTools');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('tier')
-    .setDescription('Upgrade your tier role.'),
+    .setDescription('Upgrade your tier role'),
   async execute(interaction) {
     let userData = ut.getUserData(interaction.user.id);
     const tierIDs = [null, '772900276117962792', '772985683312509011', '772985797266636810', '772985908281475084', '788266455786979338', '788266535969619998', '772986093070975007'];

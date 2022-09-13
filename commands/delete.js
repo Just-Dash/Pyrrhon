@@ -3,7 +3,7 @@ const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('delete')
-    .setDescription('Deletes multiple messages at once.')
+    .setDescription('Deletes multiple messages at once')
     .addIntegerOption(option => 
       option
         .setName('messages')

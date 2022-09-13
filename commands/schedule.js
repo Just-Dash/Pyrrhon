@@ -4,7 +4,7 @@ const fs = require('fs');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('schedule')
-    .setDescription('Edit the scheduled messages of the server.')
+    .setDescription('Edit the scheduled messages of the server')
     .addSubcommand(subcommand =>
       subcommand
         .setName('pause')

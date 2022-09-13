@@ -10,7 +10,7 @@ function capitalizeWeapon(weapon) {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('weapon')
-    .setDescription('Selects a random weapon.')
+    .setDescription('Selects a random weapon')
     .addSubcommand(subcommand =>
       subcommand
         .setName('ban')
