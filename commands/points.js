@@ -60,7 +60,7 @@ module.exports = {
     if (interaction.options.getSubcommand() === 'view') {
       await interaction.reply(`${target.username} has ${userData.points} point${userData.points != 1 ? 's' : ''}.`);
     }
-    else if (!interaction.member.roles.cache.some(r => r.id == '793645964807241740')) {
+    else if (!interaction.member.roles.cache.some(r => r.id == '793645964807241740') && !interaction.member.roles.cache.some(r => r.id == '707515092308197486')) {
       await interaction.reply('You don\'t have permission to add or subtract points.');
     }
     else if (interaction.options.getSubcommand() === 'add') {
