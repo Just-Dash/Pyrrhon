@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 const ut = require('../userTools');
 
 module.exports = {
@@ -31,6 +31,7 @@ module.exports = {
             .setDescription('How many points to add')
             .setRequired(true)
         )
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     )
     .addSubcommand(subcommand =>
       subcommand
@@ -48,6 +49,7 @@ module.exports = {
             .setDescription('How many points to subtract')
             .setRequired(true)
         )
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     ),
   async execute(interaction) {
     let target = interaction.options.getUser('user');

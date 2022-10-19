@@ -5,6 +5,6 @@ module.exports = {
     .setName('ping')
     .setDescription('Replies if online'),
   async execute(interaction) {
-    await interaction.reply('01010000 01001111 01001110 01000111');
+    await interaction.editReply('01010000 01001111 01001110 01000111');
   },
 };
