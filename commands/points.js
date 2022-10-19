@@ -31,7 +31,6 @@ module.exports = {
             .setDescription('How many points to add')
             .setRequired(true)
         )
-        .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     )
     .addSubcommand(subcommand =>
       subcommand
@@ -49,7 +48,6 @@ module.exports = {
             .setDescription('How many points to subtract')
             .setRequired(true)
         )
-        .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     ),
   async execute(interaction) {
     let target = interaction.options.getUser('user');
