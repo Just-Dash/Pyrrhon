@@ -4,7 +4,7 @@ const ut = require('../userTools');
 function capitalizeWeapon(weapon) {
   return weapon.replace(/\w[^\s-]*/g, function(w){
     return w.charAt(0).toUpperCase() + w.substring(1).toLowerCase();
-});
+  });
 }
 
 module.exports = {
