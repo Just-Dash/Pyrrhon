@@ -12,13 +12,14 @@ module.exports = {
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
   async execute(interaction) {
+    await interaction.deferReply().catch((err) => console.log(err));
     const messages = interaction.options.getInteger('messages');
     if (messages < 1) {
-      await interaction.reply({ content: 'Please enter a positive number of messages to delete.', ephemeral: false })
+      await interaction.editReply('Please enter a positive number of messages to delete.').catch((err) => console.log(err));
     }
     else {
       await interaction.channel.bulkDelete(messages);
-      await interaction.reply(`Deleted ${messages} messages.`);
+      await interaction.editReply(`Deleted ${messages} messages.`).catch((err) => console.log(err));
     }
   },
 };

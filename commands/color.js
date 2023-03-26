@@ -28,6 +28,7 @@ module.exports = {
         )
     ),
   async execute(interaction) {
+    await interaction.deferReply().catch((err) => console.log(err));
     let userData = ut.getUserData(interaction.user.id);
     const presets = ['816450131372671047', '816450254245330954', '816450336290111498', '816450360658755586', 
       '816450400106315826', '816450442371792916', '816450466996944947', '816450518770909214', '816450564145545216', 
@@ -40,13 +41,13 @@ module.exports = {
     if (interaction.options.getSubcommand() === 'preset') {
       let colorRole = interaction.options.getRole('role');
       if (!presets.includes(colorRole.id)) {
-        await interaction.reply('The role you selected is not a valid option for a preset color role.');
+        await interaction.editReply('The role you selected is not a valid option for a preset color role.').catch((err) => console.log(err));
       }
       else if (interaction.member.roles.cache.some(r => r.id == colorRole.id)) {
-        await interaction.reply('You already possess the color role selected.');
+        await interaction.editReply('You already possess the color role selected.').catch((err) => console.log(err));
       }
       else if (userData.points < presetPrice) {
-        await interaction.reply('You do not have enough points for a color role.');
+        await interaction.editReply('You do not have enough points for a color role.').catch((err) => console.log(err));
       }
       else {
         let confirmation = '';
@@ -69,7 +70,7 @@ module.exports = {
             .setLabel('No')
             .setStyle(ButtonStyle.Danger),
         );
-        await interaction.reply({ content: confirmation, ephemeral: false, components: [row] });
+        await interaction.editReply({ content: confirmation, ephemeral: false, components: [row] }).catch((err) => console.log(err));
         const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000, max: 1 });
 
@@ -81,10 +82,10 @@ module.exports = {
               interaction.member.roles.remove(prevRole);
             }
             ut.writeUserData(interaction.user.id, userData);
-            await i.update({ content: `Updated your color role to ${colorRole}.`, components: [] });
+            await i.update({ content: `Updated your color role to ${colorRole}.`, components: [] }).catch((err) => console.log(err));
           }
           else {
-            await interaction.editReply({ content: 'Color role change cancelled.', components: [] });
+            await interaction.editReply({ content: 'Color role change cancelled.', components: [] }).catch((err) => console.log(err));
           }
           collector.stop();
         });
@@ -101,10 +102,10 @@ module.exports = {
       }
 
       if (userData.points < customPrice) {
-        await interaction.reply('You do not have enough points for a custom color role.');
+        await interaction.editReply('You do not have enough points for a custom color role.').catch((err) => console.log(err));
       }
       else if (!re.test(hex)) {
-        await interaction.reply('Invalid hex code provided.');
+        await interaction.editReply('Invalid hex code provided.').catch((err) => console.log(err));
       }
       else {
         let confirmation = '';
@@ -127,7 +128,7 @@ module.exports = {
             .setLabel('No')
             .setStyle(ButtonStyle.Danger),
         );
-        await interaction.reply({ content: confirmation, ephemeral: false, components: [row] });
+        await interaction.editReply({ content: confirmation, ephemeral: false, components: [row] }).catch((err) => console.log(err));
         const filter = i => i.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000, max: 1});
 
@@ -146,10 +147,10 @@ module.exports = {
               interaction.member.roles.remove(prevRole);
             }
             ut.writeUserData(interaction.user.id, userData);
-            await i.update({ content: `Updated your color role to ${customRole}.`, components: [] });
+            await i.update({ content: `Updated your color role to ${customRole}.`, components: [] }).catch((err) => console.log(err));
           }
           else {
-            await interaction.editReply({ content: 'Color role change cancelled.', components: [] })
+            await interaction.editReply({ content: 'Color role change cancelled.', components: [] }).catch((err) => console.log(err));
           }
           collector.stop();
         });

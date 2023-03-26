@@ -27,18 +27,19 @@ module.exports = {
         )
     ),
   async execute(interaction) {
+    await interaction.deferReply().catch((err) => console.log(err));
     if (interaction.options.getSubcommand() === 'set') {
       let fc = interaction.options.getString('fc');
       let userData = ut.getUserData(interaction.user.id);
       fc = fc.replace(/\D/gi, '');
       if (fc.length != 12) {
-        await interaction.reply('Friend codes must be 12 digits long.');
+        await interaction.editReply('Friend codes must be 12 digits long.').catch((err) => console.log(err));
       }
       else {
         fc = `${fc.substring(0, 4)}-${fc.substring(4, 8)}-${fc.substring(8, 12)}`;
         userData.fc = fc;
         ut.writeUserData(interaction.user.id, userData);
-        await interaction.reply(`Friend code set to ${fc}.`);
+        await interaction.editReply(`Friend code set to ${fc}.`).catch((err) => console.log(err));
       }
     }
     else {
@@ -49,10 +50,10 @@ module.exports = {
       let userData = ut.getUserData(target.id);
       let fc = userData.fc;
       if (!fc) {
-        await interaction.reply(`${target.username}'s friend code has not been set.`);
+        await interaction.editReply(`${target.username}'s friend code has not been set.`).catch((err) => console.log(err));
       }
       else {
-        await interaction.reply(`${target.username}'s friend code is ${userData.fc}.`);
+        await interaction.editReply(`${target.username}'s friend code is ${userData.fc}.`).catch((err) => console.log(err));
       }
     }
   },

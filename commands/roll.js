@@ -9,8 +9,9 @@ module.exports = {
         .setDescription('The number of sides of the die to roll')
         .setRequired(false)),
   async execute(interaction) {
+    await interaction.deferReply().catch((err) => console.log(err));
     let sides = interaction.options.getInteger('sides');
     if (sides <= 0) sides = 6;
-    await interaction.reply(`A ${Math.ceil(Math.random() * sides)} was rolled on a ${sides}-sided die.`);
+    await interaction.editReply(`A ${Math.ceil(Math.random() * sides)} was rolled on a ${sides}-sided die.`).catch((err) => console.log(err));
   },
 };

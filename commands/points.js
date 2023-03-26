@@ -50,6 +50,7 @@ module.exports = {
         )
     ),
   async execute(interaction) {
+    await interaction.deferReply().catch((err) => console.log(err));
     let target = interaction.options.getUser('user');
     if (!target) {
       target = interaction.user;
@@ -58,10 +59,10 @@ module.exports = {
     let flag = false;
     const tempPoints = userData.points;
     if (interaction.options.getSubcommand() === 'view') {
-      await interaction.reply(`${target.username} has ${userData.points} point${userData.points != 1 ? 's' : ''}.`);
+      await interaction.editReply(`${target.username} has ${userData.points} point${userData.points != 1 ? 's' : ''}.`).catch((err) => console.log(err));
     }
     else if (!interaction.member.roles.cache.some(r => r.id == '793645964807241740') && !interaction.member.roles.cache.some(r => r.id == '707515092308197486') && !interaction.member.roles.cache.some(r => r.id == '725940705113145417')) {
-      await interaction.reply('You don\'t have permission to add or subtract points.');
+      await interaction.editReply('You don\'t have permission to add or subtract points.').catch((err) => console.log(err));
     }
     else if (interaction.options.getSubcommand() === 'add') {
       userData.points += interaction.options.getInteger('points');
@@ -73,11 +74,11 @@ module.exports = {
     }
     if (flag) {
       ut.writeUserData(target.id, userData);
-      await interaction.reply(
+      await interaction.editReply(
         `**Points balance change for <@${target.id}>**\n` +
         `Previous: ${tempPoints}\n` +
         `Current: ${userData.points}`
-      );
+      ).catch((err) => console.log(err));
     }
   },
 };

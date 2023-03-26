@@ -39,6 +39,7 @@ module.exports = {
         .setDescription('Picks a random weapon from those unbanned on your personal weapon list')
     ),
   async execute(interaction) {
+    await interaction.deferReply().catch((err) => console.log(err));
     let userData = ut.getUserData(interaction.user.id);
     if (interaction.options.getSubcommand() === 'ban' || interaction.options.getSubcommand() === 'unban') {
       let unbanFlag = interaction.options.getSubcommand() === 'unban';
@@ -111,10 +112,10 @@ module.exports = {
       }
       if (validArg) {
         ut.writeUserData(interaction.user.id, userData);
-        await interaction.reply(`Successfully ${interaction.options.getSubcommand()}ned ${weapon.includes(' ') ? '' : 'type '}${weapon} on your banlist.`);
+        await interaction.editReply(`Successfully ${interaction.options.getSubcommand()}ned ${weapon.includes(' ') ? '' : 'type '}${weapon} on your banlist.`).catch((err) => console.log(err));
       }
       else {
-        await interaction.reply('Weapon or type unknown. Check your spelling and try again.');
+        await interaction.editReply('Weapon or type unknown. Check your spelling and try again.').catch((err) => console.log(err));
       }
     }
     else {
@@ -126,11 +127,11 @@ module.exports = {
       }
 
       if (unbannedWeapons.length <= 0) {
-        await interaction.reply(`You don't have any unbanned weapons to pick from!`);
+        await interaction.editReply(`You don't have any unbanned weapons to pick from!`).catch((err) => console.log(err));
       }
       else {
         const pickedWeapon = unbannedWeapons[Math.floor(Math.random() * unbannedWeapons.length)];
-        await interaction.reply(`Use the ${capitalizeWeapon(pickedWeapon)}.`);
+        await interaction.editReply(`Use the ${capitalizeWeapon(pickedWeapon)}.`).catch((err) => console.log(err));
       }
     }
   },

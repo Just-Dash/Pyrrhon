@@ -12,8 +12,9 @@ module.exports = {
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   async execute(interaction) {
+    await interaction.deferReply().catch((err) => console.log(err));
     let scheduledMessages = JSON.parse(fs.readFileSync('./info/scheduledMessages.json'));
     scheduledMessages.paused = !scheduledMessages.paused;
-    await interaction.reply(`Scheduled messages ${scheduledMessages.paused ? 'paused' : 'unpaused'}.`);
+    await interaction.editReply(`Scheduled messages ${scheduledMessages.paused ? 'paused' : 'unpaused'}.`).catch((err) => console.log(err));
   },
 };

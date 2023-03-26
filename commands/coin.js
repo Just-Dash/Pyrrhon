@@ -5,6 +5,7 @@ module.exports = {
     .setName('coin')
     .setDescription('Flips a coin'),
   async execute(interaction) {
-    await interaction.reply(`The coin landed ${Math.random() * 2 > 1 ? 'heads' : 'tails'}.`);
+    await interaction.deferReply().catch((err) => console.log(err));
+    await interaction.editReply(`The coin landed ${Math.random() * 2 > 1 ? 'heads' : 'tails'}.`).catch((err) => console.log(err));
   },
 };

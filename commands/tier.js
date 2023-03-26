@@ -6,6 +6,7 @@ module.exports = {
     .setName('tier')
     .setDescription('Upgrade your tier role'),
   async execute(interaction) {
+    await interaction.deferReply().catch((err) => console.log(err));
     let userData = ut.getUserData(interaction.user.id);
     const tierIDs = [null, '772900276117962792', '772985683312509011', '772985797266636810', '772985908281475084', '788266455786979338', '788266535969619998', '772986093070975007'];
     const tierPrice = [0, 1, 10, 15, 25, 50, 100, 200];
@@ -16,10 +17,10 @@ module.exports = {
     }
 
     if (currentTierNum + 1 >= tierIDs.length) {
-      await interaction.reply({ content: 'You already have the max tier.', ephemeral: false });
+      await interaction.editReply('You already have the max tier.').catch((err) => console.log(err));
     }
     else if (userData.points < tierPrice[currentTierNum + 1]) {
-      await interaction.reply({content: `The next tier requires ${tierPrice[currentTierNum + 1]} points, but you currently have ${userData.points}.`, ephemeral: true })
+      await interaction.editReply(`The next tier requires ${tierPrice[currentTierNum + 1]} points, but you currently have ${userData.points}.`).catch((err) => console.log(err));
     }
     else {
       let confirmation = `Your current point total is ${userData.points}.\n` +
@@ -36,7 +37,7 @@ module.exports = {
           .setLabel('No')
           .setStyle(ButtonStyle.Danger),
       );
-      await interaction.reply({ content: confirmation, ephemeral: false, components: [row] });
+      await interaction.editReply({ content: confirmation, components: [row] }).catch((err) => console.log(err));
       const filter = i => i.user.id === interaction.user.id;
       const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000, max: 1 });
 
@@ -48,10 +49,10 @@ module.exports = {
             interaction.member.roles.remove(interaction.guild.roles.cache.find(r => r.id === tierIDs[currentTierNum]));
           }
           ut.writeUserData(interaction.user.id, userData);
-          await i.update({ content: `Congratulations, you've been upgraded to the ${interaction.guild.roles.cache.find(r => r.id === tierIDs[currentTierNum + 1])} role!`, components: [] });
+          await i.update({ content: `Congratulations, you've been upgraded to the ${interaction.guild.roles.cache.find(r => r.id === tierIDs[currentTierNum + 1])} role!`, components: [] }).catch((err) => console.log(err));
         }
         else {
-          await interaction.editReply({ content: 'Tier upgrade cancelled.', components: [] });
+          await interaction.editReply({ content: 'Tier upgrade cancelled.', components: [] }).catch((err) => console.log(err));
         }
         collector.stop();
       });

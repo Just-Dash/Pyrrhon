@@ -27,17 +27,18 @@ module.exports = {
         )
     ),
   async execute(interaction) {
+    await interaction.deferReply().catch((err) => console.log(err));
     const freeRoles = ['748387591942045696', '710670964471496744', '748388197553143859', '909645162991484948'];
     if (!freeRoles.includes(interaction.options.getRole('role').id)) {
-      await interaction.reply('Sorry, you can\'t add/remove yourself from that role.');
+      await interaction.editReply('Sorry, you can\'t add/remove yourself from that role.').catch((err) => console.log(err));
     }
     else if (interaction.options.getSubcommand() === 'add') {
       interaction.member.roles.add(interaction.options.getRole('role'));
-      await interaction.reply(`${interaction.options.getRole('role').name} role added.`);
+      await interaction.editReply(`${interaction.options.getRole('role').name} role added.`).catch((err) => console.log(err));
     }
     else {
       interaction.member.roles.remove(interaction.options.getRole('role'));
-      await interaction.reply(`${interaction.options.getRole('role').name} role removed.`);
+      await interaction.editReply(`${interaction.options.getRole('role').name} role removed.`).catch((err) => console.log(err));
     }
   },
 };
