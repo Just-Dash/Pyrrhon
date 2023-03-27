@@ -73,12 +73,12 @@ module.exports = {
       flag = true;
     }
     if (flag) {
-      ut.writeUserData(target.id, userData);
       await interaction.editReply(
         `**Points balance change for <@${target.id}>**\n` +
         `Previous: ${tempPoints}\n` +
         `Current: ${userData.points}`
-      ).catch((err) => console.log(err));
+      ).catch((err) => { console.log(err); userData.points = tempPoints });
+      ut.writeUserData(target.id, userData);
     }
   },
 };
