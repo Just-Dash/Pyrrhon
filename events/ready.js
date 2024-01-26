@@ -21,6 +21,18 @@ module.exports = {
       }
     });
 
+    cron.schedule(`${scheduledMessages.messages.themedAnnouncement.time}`, () => {
+      if (!JSON.parse(fs.readFileSync('./info/scheduledMessages.json')).paused) {
+        client.channels.cache.get(scheduledMessages.messages.themedAnnouncement.channel).send(scheduledMessages.messages.themedAnnouncement.content);
+      }
+    });
+
+    cron.schedule(`${scheduledMessages.messages.themedReminder.time}`, () => {
+      if (!JSON.parse(fs.readFileSync('./info/scheduledMessages.json')).paused) {
+        client.channels.cache.get(scheduledMessages.messages.themedReminder.channel).send(scheduledMessages.messages.themedReminder.content);
+      }
+    });
+
     cron.schedule(`${scheduledMessages.messages.lvdAnnouncement.time}`, () => {
       if (!JSON.parse(fs.readFileSync('./info/scheduledMessages.json')).paused) {
         client.channels.cache.get(scheduledMessages.messages.lvdAnnouncement.channel).send(scheduledMessages.messages.lvdAnnouncement.content);
