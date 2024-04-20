@@ -9,18 +9,6 @@ module.exports = {
 
     const scheduledMessages = JSON.parse(fs.readFileSync('./info/scheduledMessages.json'));
 
-    cron.schedule(`${scheduledMessages.messages.ffaAnnouncement.time}`, () => {
-      if (!JSON.parse(fs.readFileSync('./info/scheduledMessages.json')).paused) {
-        client.channels.cache.get(scheduledMessages.messages.ffaAnnouncement.channel).send(scheduledMessages.messages.ffaAnnouncement.content);
-      }
-    });
-
-    cron.schedule(`${scheduledMessages.messages.ffaReminder.time}`, () => {
-      if (!JSON.parse(fs.readFileSync('./info/scheduledMessages.json')).paused) {
-        client.channels.cache.get(scheduledMessages.messages.ffaReminder.channel).send(scheduledMessages.messages.ffaReminder.content);
-      }
-    });
-
     cron.schedule(`${scheduledMessages.messages.themedAnnouncement.time}`, () => {
       if (!JSON.parse(fs.readFileSync('./info/scheduledMessages.json')).paused) {
         client.channels.cache.get(scheduledMessages.messages.themedAnnouncement.channel).send(scheduledMessages.messages.themedAnnouncement.content);
