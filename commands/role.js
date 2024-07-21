@@ -28,7 +28,7 @@ module.exports = {
     ),
   async execute(interaction) {
     await interaction.deferReply().catch((err) => console.log(err));
-    const freeRoles = ['748387591942045696', '710670964471496744', '748388197553143859', '909645162991484948', '1092876840894468136', '1085751214123266189', '1041121570350973049'];
+    const freeRoles = ['748387591942045696', '710670964471496744', '748388197553143859', '909645162991484948', '1092876840894468136', '1085751214123266189', '1041121570350973049', '1195505529053782116', '1004187677136003172', '1251728970085433446', '1135058998022914071'];
     if (!freeRoles.includes(interaction.options.getRole('role').id)) {
       await interaction.editReply('Sorry, you can\'t add/remove yourself from that role.').catch((err) => console.log(err));
     }
