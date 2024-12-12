@@ -112,7 +112,7 @@ module.exports = {
         let prevRole = null;
         if (interaction.member.roles.cache.some(r => r.color != 0)) {
           confirmation += 'Note that adding a custom color role will remove your current color role.\n';
-          prevRole = interaction.member.roles.cache.find(r => r.color != 0);
+          prevRole = interaction.member.roles.cache.find(r => r.color != 0 && r.id != '821830980855529552');
         }
         confirmation += `Your current point total is ${userData.points}.\n` +
         `After changing your color, you will have ${userData.points - customPrice}.\n`+
