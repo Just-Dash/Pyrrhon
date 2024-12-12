@@ -29,7 +29,7 @@ module.exports = {
     ),
   async execute(interaction) {
     await interaction.deferReply().catch((err) => console.log(err));
-    let userData = ut.getUserData(interaction.user.id);
+    let userData = await ut.getUserData(interaction.user.id).catch((err) => console.log(err));
     const presets = ['816450131372671047', '816450254245330954', '816450336290111498', '816450360658755586', 
       '816450400106315826', '816450442371792916', '816450466996944947', '816450518770909214', '816450564145545216', 
       '816450583371317329', '816450599867645963', '816450635901304852', '816450669015203850', '816450688711131177', 
@@ -81,7 +81,7 @@ module.exports = {
             if (prevRole) {
               interaction.member.roles.remove(prevRole);
             }
-            ut.writeUserData(interaction.user.id, userData);
+            await ut.writeUserData(interaction.user.id, userData).catch((err) => console.log(err));
             await i.update({ content: `Updated your color role to ${colorRole}.`, components: [] }).catch((err) => console.log(err));
           }
           else {
@@ -146,7 +146,7 @@ module.exports = {
             if (prevRole) {
               interaction.member.roles.remove(prevRole);
             }
-            ut.writeUserData(interaction.user.id, userData);
+            await ut.writeUserData(interaction.user.id, userData).catch((err) => console.log(err));
             await i.update({ content: `Updated your color role to ${customRole}.`, components: [] }).catch((err) => console.log(err));
           }
           else {

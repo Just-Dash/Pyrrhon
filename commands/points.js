@@ -55,7 +55,7 @@ module.exports = {
     if (!target) {
       target = interaction.user;
     }
-    let userData = ut.getUserData(target.id);
+    let userData = await ut.getUserData(target.id).catch((err) => console.log(err));
     let flag = false;
     const tempPoints = userData.points;
     if (interaction.options.getSubcommand() === 'view') {
@@ -78,7 +78,7 @@ module.exports = {
         `Previous: ${tempPoints}\n` +
         `Current: ${userData.points}`
       ).catch((err) => { console.log(err); userData.points = tempPoints });
-      ut.writeUserData(target.id, userData);
+      await ut.writeUserData(target.id, userData).catch((err) => console.log(err));
     }
   },
 };

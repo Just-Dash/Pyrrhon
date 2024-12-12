@@ -7,7 +7,7 @@ module.exports = {
     .setDescription('Upgrade your tier role'),
   async execute(interaction) {
     await interaction.deferReply().catch((err) => console.log(err));
-    let userData = ut.getUserData(interaction.user.id);
+    let userData = await ut.getUserData(interaction.user.id).catch((err) => console.log(err));
     const tierIDs = [null, '772900276117962792', '772985683312509011', '772985797266636810', '772985908281475084', '788266455786979338', '788266535969619998', '772986093070975007'];
     const tierPrice = [0, 1, 10, 15, 25, 50, 100, 200];
     const currentTier = interaction.member.roles.cache.find(r => tierIDs.includes(r.id));
@@ -48,7 +48,7 @@ module.exports = {
           if (currentTierNum != 0) {
             interaction.member.roles.remove(interaction.guild.roles.cache.find(r => r.id === tierIDs[currentTierNum]));
           }
-          ut.writeUserData(interaction.user.id, userData);
+          await ut.writeUserData(interaction.user.id, userData).catch((err) => console.log(err));
           await i.update({ content: `Congratulations, you've been upgraded to the ${interaction.guild.roles.cache.find(r => r.id === tierIDs[currentTierNum + 1])} role!`, components: [] }).catch((err) => console.log(err));
         }
         else {

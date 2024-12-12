@@ -1,35 +1,22 @@
-const fs = require('fs');
-
-function register(userID) {
-  const filepath = `./users/${userID}.json`;
-  const weapons = JSON.parse(fs.readFileSync('./info/weapons.json'));
-  let userData = {
-    points: 0,
-    weapons,
-  };
-  fs.writeFileSync(filepath, JSON.stringify(userData, null, 2));
-  return userData;
-}
+const sql = require('./db.js');
 
 module.exports = {
-  getUserData: function (userID) {
-    const filepath = `./users/${userID}.json`;
-    if (fs.existsSync(filepath)) {
-      return JSON.parse(fs.readFileSync(filepath));
+  getUserData: async function (userID) {
+    try {
+      let data = await sql`SELECT * FROM getOrCreateUser(${userID})`;
+      return data[0];
     }
-    else {
-      return register(userID);
+    catch(err) {
+      console.log(err);
     }
   },
 
-  writeUserData: function (userID, userData) {
-    const filepath = `./users/${userID}.json`;
+  writeUserData: async function (userID, userData) {
     try {
-      if (!userData) return;
-      fs.writeFileSync(filepath, JSON.stringify(userData, null, 2));
+      await sql`UPDATE Users SET points = ${userData.points}, fc = ${userData.fc} WHERE id = ${userID}`;
     }
-    catch (err) {
+    catch(err) {
       console.log(err);
-    };
+    }
   }
 };

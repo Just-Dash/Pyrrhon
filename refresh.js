@@ -14,9 +14,9 @@ for (const file of commandFiles) {
   commands.push(command.data.toJSON());
 }
 
-const rest = new REST({ version: '10' }).setToken(auth.token);
+const rest = new REST({ version: '10' }).setToken(auth.client.token);
 
-rest.put(Routes.applicationGuildCommands(auth.id, auth.guild), { body: commands })
+rest.put(Routes.applicationGuildCommands(auth.client.id, auth.client.guild), { body: commands })
   .then(() => console.log('Successfully registered application commands.'))
   .catch(console.error);
 

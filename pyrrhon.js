@@ -30,4 +30,4 @@ for (const file of eventFiles) {
 }
 
 // Login to Discord
-client.login(auth.token);
+client.login(auth.client.token);
