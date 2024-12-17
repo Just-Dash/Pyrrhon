@@ -15,8 +15,7 @@ fs.readdir("./users", async (err, files) => {
 
   await files.forEach(async file => {
     let data = JSON.parse(fs.readFileSync(`./users/${file}`));
-    query += `(${file.substring(0, file.length-5)}, ${data.points === undefined ? 0 : parseInt(data.points)}, ${data.fc === undefined ? null : `\'${data.fc}\'`}),`;
-    // await sql`INSERT INTO Users (id, points, fc) VALUES (${file.substring(0, file.length-5)}, ${data.points}, ${data.fc})`
+    query += `(${file.substring(0, file.length-5)}, ${data.points == undefined ? 0 : parseInt(data.points)}, ${data.fc === undefined ? null : `\'${data.fc}\'`}),`;
   });
 
   await sql(query.substring(0, query.length-1));
