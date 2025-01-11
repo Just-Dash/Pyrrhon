@@ -16,7 +16,7 @@ module.exports = {
     let img = interaction.options.getAttachment('image');
 
     if (img.contentType != 'image/png' && img.contentType != 'image/jpg' && img.contentType != 'image/jpeg') {
-      interaction.editReply(`Invalid file type: ${img.contentType}`);
+      interaction.editReply(`Invalid file type: ${img.contentType}`).catch((err) => console.log(err));
       return;
     }
 
@@ -24,7 +24,7 @@ module.exports = {
     const py = spawn('python3', ['./helpers/convert.py', img.url]);
 
     py.stdout.on('data', async function (data) { 
-      interaction.editReply({content: "Dash should be receiving it shortly."}); 
+	interaction.editReply({content: "Dash should be receiving it shortly."}).catch((err) => console.log(err));
     });
   },
 };

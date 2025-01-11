@@ -18,10 +18,10 @@ if img.height > 122:
     scale = min(scale, 122 / img.height)
 if scale != 1:
     img = img.resize((math.floor(img.width * scale), math.floor(img.height * scale)))
-img = img.quantize(colors=3, palette=palette, dither=Image.Dither.NONE)
+img = img.quantize(colors=3, palette=palette, dither=Image.Dither.FLOYDSTEINBERG)
 out = out.quantize(colors=3, palette=palette, dither=Image.Dither.NONE)
 out.paste(img)
 out.save("helpers/out.png")
-inky_display.set_image(img)
+inky_display.set_image(out)
 inky_display.show()
 print("Ok")
