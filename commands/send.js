@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
+const { SlashCommandBuilder, AttachmentBuilder, MessageFlags } = require('discord.js');
 const fs = require('fs');
 
 module.exports = {
@@ -21,10 +21,14 @@ module.exports = {
     }
 
     const { spawn } = require('child_process');
-    const py = spawn('python3', ['./helpers/convert.py', img.url]);
+    const convert = spawn('python3', ['./helpers/convert.py', img.url]);
 
-    py.stdout.on('data', async function (data) { 
-	interaction.editReply({content: "Dash should be receiving it shortly."}).catch((err) => console.log(err));
+    convert.stdout.on('data', async function (data) { 
+	    // interaction.editReply({content: "Dash should be receiving it shortly."}).catch((err) => console.log(err));
+      const draw = spawn('python3', ['./helpers/draw.py'])
+      draw.stdout.on('data', async function (data) {
+        interaction.editReply({content: "Dash should be receiving this shortly.", files: ['./helpers/SPOILER_out.png']}).catch((err) => console.log(err));
+      })
     });
   },
 };

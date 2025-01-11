@@ -1,9 +1,6 @@
 import math
 import sys
 import requests
-from inky.auto import auto
-inky_display = auto()
-inky_display.set_border(inky_display.WHITE)
 from PIL import Image, ImageFont, ImageDraw
 
 img = Image.open(requests.get(sys.argv[1], stream=True).raw)
@@ -21,7 +18,5 @@ if scale != 1:
 img = img.quantize(colors=3, palette=palette, dither=Image.Dither.FLOYDSTEINBERG)
 out = out.quantize(colors=3, palette=palette, dither=Image.Dither.NONE)
 out.paste(img)
-out.save("helpers/out.png")
-inky_display.set_image(out)
-inky_display.show()
+out.save("helpers/SPOILER_out.png")
 print("Ok")
