@@ -8,9 +8,7 @@ out = Image.new("RGB", (250, 122))
 palette = Image.open("helpers/palette.png")
 palette.convert("P")
 img = img.convert("RGB")
-scale = 1
-if (img.width > 250 and img.height > 122) or (img.width < 250 and img.height < 122):
-    scale = min(250 / img.width, 122 / img.height)
+scale = min(250 / img.width, 122 / img.height)
 if scale != 1:
     img = img.resize((math.floor(img.width * scale), math.floor(img.height * scale)))
 dither = Image.Dither.FLOYDSTEINBERG if sys.argv[2] == "true" else Image.Dither.NONE
